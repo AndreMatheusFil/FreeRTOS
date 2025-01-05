@@ -3,3 +3,5 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
+EX_01/include/README
+Hello_ESP32/.gitignore
