@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../VScodeProjects/iot"
+		},
+		{
+			"name": "Hello_ESP32",
+			"path": "Hello_ESP32"
+		},
+		{
+			"name": "EX_01",
+			"path": "EX_01"
+		}
+	],
+	"settings": {}
+}
