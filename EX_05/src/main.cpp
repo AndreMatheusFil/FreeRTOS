@@ -1,6 +1,6 @@
 /******************************************************************
-Exemplo para parametrôs nas tasks
-Esse exemplo é como parametrôs nas tarefas no FreeRTOS
+Exemplo para tasks em núcleos diferentes
+Esse exemplo é como fazer tarefas em núcleos diferentes no FreeRTOS
 
 ******************************************************************/
 
@@ -24,9 +24,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   
-
-  xTaskCreate(vTask1,"TASK1",configMINIMAL_STACK_SIZE,(void*)LED,1,&task1Handle);
-  xTaskCreate(vTask2,"TASK2",configMINIMAL_STACK_SIZE+1024,NULL,2,&task2Handle);
+  xTaskCreatePinnedToCore(vTask1,"TASK1",configMINIMAL_STACK_SIZE,(void*)LED,1,&task1Handle,APP_CPU_NUM);
+  xTaskCreatePinnedToCore(vTask2,"TASK2",configMINIMAL_STACK_SIZE+1024,NULL,2,&task2Handle,PRO_CPU_NUM);
 }
 
 void loop() {

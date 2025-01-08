@@ -1,6 +1,6 @@
 /******************************************************************
-Exemplo para parametrôs nas tasks
-Esse exemplo é como parametrôs nas tarefas no FreeRTOS
+Exemplo como verificar o consumo de memoria das tarefas - High Water Mark
+Esse exemplo é como fazer tarefas em núcleos diferentes no FreeRTOS
 
 ******************************************************************/
 
@@ -24,9 +24,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   
-
-  xTaskCreate(vTask1,"TASK1",configMINIMAL_STACK_SIZE,(void*)LED,1,&task1Handle);
-  xTaskCreate(vTask2,"TASK2",configMINIMAL_STACK_SIZE+1024,NULL,2,&task2Handle);
+  xTaskCreatePinnedToCore(vTask1,"TASK1",configMINIMAL_STACK_SIZE,(void*)LED,1,&task1Handle,APP_CPU_NUM);
+  xTaskCreatePinnedToCore(vTask2,"TASK2",configMINIMAL_STACK_SIZE+1024,NULL,2,&task2Handle,PRO_CPU_NUM);
 }
 
 void loop() {
@@ -35,22 +34,32 @@ void loop() {
 
 void vTask1(void *pvParameters)
 {
+  UBaseType_t uxHighWaterMark;
   int pin = (int)pvParameters;
   pinMode(pin,OUTPUT);
   while (1)
   {
     digitalWrite(pin,!digitalRead(pin));
     vTaskDelay(pdMS_TO_TICKS(200));
+    uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+    Serial.print(pcTaskGetTaskName(NULL));
+    Serial.print(" : ");
+    Serial.println(uxHighWaterMark);
   }
   
 }
 void vTask2(void *pvParameters)
 {
+  UBaseType_t uxHighWaterMark;
   int cont = 0;
   while (1)
   {
     Serial.println("Task 2:" + String(cont++));
     vTaskDelay(1000);
+    uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+    Serial.print(pcTaskGetTaskName(NULL));
+    Serial.print(" : ");
+    Serial.println(uxHighWaterMark);
   }
   
 }

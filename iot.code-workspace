@@ -22,6 +22,14 @@
 		{
 			"name": "EX_04",
 			"path": "EX_04"
+		},
+		{
+			"name": "EX_05",
+			"path": "EX_05"
+		},
+		{
+			"name": "EX_06",
+			"path": "EX_06"
 		}
 	],
 	"settings": {}
