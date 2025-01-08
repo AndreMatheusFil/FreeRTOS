@@ -1,6 +1,6 @@
 /******************************************************************
-Exemplo para criação de tasks
-Esse exemplo é como criar tarefas no FreeRTOS
+Exemplo para deletar de tasks
+Esse exemplo é como deletar tarefas no FreeRTOS
 
 ******************************************************************/
 
@@ -39,7 +39,7 @@ void vTask1(void *pvParameters)
   while (1)
   {
     digitalWrite(LED,!digitalRead(LED));
-    vTaskDelay(pdMS_TO_TICKS(200));
+    vTaskDelay(pdMS_TO_TICKS(2000));
   }
   
 }
@@ -49,6 +49,20 @@ void vTask2(void *pvParameters)
   while (1)
   {
     Serial.println("Task 2:" + String(cont++));
+    if(cont>=10){
+      if(task1Handle != NULL){
+        Serial.println("Deletando TASK 1");
+        vTaskDelete(task1Handle);
+        digitalWrite(LED,LOW);
+        task1Handle = NULL;
+      }
+    }
+    if(cont>=15){
+      if(task2Handle != NULL){
+        Serial.println("Deletando TASK 2");
+        vTaskDelete(NULL);
+      }
+    }
     vTaskDelay(1000);
   }
   

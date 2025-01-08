@@ -10,6 +10,18 @@
 		{
 			"name": "EX_01",
 			"path": "EX_01"
+		},
+		{
+			"name": "EX_02",
+			"path": "EX_02"
+		},
+		{
+			"name": "EX_03",
+			"path": "EX_03"
+		},
+		{
+			"name": "EX_04",
+			"path": "EX_04"
 		}
 	],
 	"settings": {}

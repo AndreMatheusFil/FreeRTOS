@@ -1,6 +1,6 @@
 /******************************************************************
-Exemplo para criação de tasks
-Esse exemplo é como criar tarefas no FreeRTOS
+Exemplo para supender e reiniciar de tasks
+Esse exemplo é como supender e reiniciar tarefas no FreeRTOS
 
 ******************************************************************/
 
@@ -49,6 +49,17 @@ void vTask2(void *pvParameters)
   while (1)
   {
     Serial.println("Task 2:" + String(cont++));
+    if(cont==10){
+      Serial.println("Suspendendo TASK 1");
+      vTaskSuspend(task1Handle);
+      digitalWrite(LED,LOW);
+    }
+    else if(cont==15){
+      Serial.println("Reiniciando TASK 1");
+      vTaskResume(task1Handle);
+      cont = 0;
+      
+    }
     vTaskDelay(1000);
   }
   
